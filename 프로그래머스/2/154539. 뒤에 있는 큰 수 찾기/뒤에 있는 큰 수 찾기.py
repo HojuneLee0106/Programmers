@@ -1,9 +1,20 @@
 def solution(numbers):
-    answer = [-1 for _ in range(len(numbers))]
-    stack=[]
+    answer = []
     for i in range(len(numbers)):
-        while stack and numbers[stack[-1]]<numbers[i]:
-            idx=stack.pop()
-            answer[idx]=numbers[i]
-        stack.append(i)
+        if i==len(numbers)-1:
+            answer.append(-1)
+            break
+        c=1
+        N=len(answer)
+        for j in range(i+1,len(numbers)):
+            if numbers[j]<=numbers[i]:
+                c+=1
+            else:
+                stack=[numbers[j] for _ in range(c)]
+                answer+=stack
+                i+=c-1
+                break
+        M=len(answer)
+        if N==M:
+            answer.append(-1)
     return answer
